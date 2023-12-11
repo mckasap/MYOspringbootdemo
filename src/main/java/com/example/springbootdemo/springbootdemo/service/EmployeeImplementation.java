@@ -1,5 +1,6 @@
 package com.example.springbootdemo.springbootdemo.service;
 
+import com.example.springbootdemo.springbootdemo.error.EmployeeNotFoundException;
 import com.example.springbootdemo.springbootdemo.model.Employee;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,26 @@ public class EmployeeImplementation implements EmployeeService {
     public Employee getEmployeeById(String id) {
         Employee e = empList
                 .stream()
-                .filter(t->t.getEmpId().equalsIgnoreCase(id))
+                .filter(t -> t.getEmpId().equalsIgnoreCase(id))
                 .findFirst()
-                .get();
-        return e;
+                .orElseThrow(
+                        () ->
+                                new EmployeeNotFoundException("there is no " +
+                                        "mathcing Record with id  :" + id));
+      return e;
     }
 
     @Override
     public String deleteEmpById(String id) {
-        return null;
+        Employee e = empList
+                .stream()
+                .filter(t -> t.getEmpId().equalsIgnoreCase(id))
+                .findFirst()
+                .orElseThrow(
+                        () ->
+                                new EmployeeNotFoundException("there is no " +
+                                        "mathcing Record with id  :" + id));
+        empList.remove(e);
+        return "the Employee Record with id :" + id + " is DELETED";
     }
 }
