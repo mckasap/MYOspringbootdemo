@@ -19,4 +19,24 @@ public class EmployeeImplementation implements EmployeeService {
         empList.add(E);
         return E;
     }
+
+    @Override
+    public List<Employee> getEmployees() {
+        return empList;
+    }
+
+    @Override
+    public Employee getEmployeeById(String id) {
+        Employee e = empList
+                .stream()
+                .filter(t->t.getEmpId().equalsIgnoreCase(id))
+                .findFirst()
+                .get();
+        return e;
+    }
+
+    @Override
+    public String deleteEmpById(String id) {
+        return null;
+    }
 }
