@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/v1/employee")
 public class EmployeeController {
 
     @Qualifier("employeeImplementation")
@@ -29,6 +29,12 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable(name= "id") String id){
+        return service.getEmployeeById(id);
+    }
+
+
+    @GetMapping("/myParam")
+    public Employee getEmployeebyParam(@RequestParam(name= "id") String id){
         return service.getEmployeeById(id);
     }
 
