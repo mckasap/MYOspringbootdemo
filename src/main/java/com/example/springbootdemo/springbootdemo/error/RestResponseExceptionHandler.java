@@ -11,10 +11,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler{
     @ExceptionHandler(EmployeeNotFoundException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
     public ErrorMessage employeeNotFoundExceptionHandler(EmployeeNotFoundException ex){
-         ErrorMessage em= new ErrorMessage(HttpStatus.NOT_FOUND,ex.getMessage());
+         ErrorMessage em= new ErrorMessage(HttpStatus.BAD_GATEWAY,ex.getMessage());
          return em;
         }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage GenericException(RuntimeException ex){
+        ErrorMessage em= new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
+        return em;
+    }
 
 }

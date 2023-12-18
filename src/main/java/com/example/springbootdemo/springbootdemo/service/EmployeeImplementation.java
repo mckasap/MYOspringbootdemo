@@ -28,6 +28,7 @@ public class EmployeeImplementation implements EmployeeService {
 
     @Override
     public Employee getEmployeeById(String id) {
+        //lambda
         Employee e = empList
                 .stream()
                 .filter(t -> t.getEmpId().equalsIgnoreCase(id))
@@ -47,7 +48,7 @@ public class EmployeeImplementation implements EmployeeService {
                 .findFirst()
                 .orElseThrow(
                         () ->
-                                new EmployeeNotFoundException("there is no " +
+                                new RuntimeException("there is no " +
                                         "mathcing Record with id  :" + id));
         empList.remove(e);
         return "the Employee Record with id :" + id + " is DELETED";
