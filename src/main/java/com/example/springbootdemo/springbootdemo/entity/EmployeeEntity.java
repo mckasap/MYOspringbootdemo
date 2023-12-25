@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 @Table(name="tbl_Employee")
 public class EmployeeEntity {
 
+
+
 @Id
 private String empId;
     private String empName;

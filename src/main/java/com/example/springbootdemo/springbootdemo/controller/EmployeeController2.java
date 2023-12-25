@@ -4,10 +4,9 @@ import com.example.springbootdemo.springbootdemo.model.Employee;
 import com.example.springbootdemo.springbootdemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v2/employee")
@@ -20,4 +19,15 @@ public class EmployeeController2 {
        return  employeeService.empSave(E);
     }
 
+    @GetMapping()
+    public List<Employee> getAllEmployee(){
+        return employeeService.getEmployees();
+    }
+
+    @GetMapping("/{id}")
+    public Employee getEmployee(@PathVariable  String id){
+
+        return employeeService.getEmployeeById(id);
+
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class EmployeeH2Implementation implements EmployeeService {
         }
 
         EmployeeEntity empEnt = new EmployeeEntity();
-        BeanUtils.copyProperties(E,empEnt);
+        BeanUtils.copyProperties(E, empEnt);
         employeeRepository.save(empEnt);
         //empList.add(E);
         return E;
@@ -32,16 +33,37 @@ public class EmployeeH2Implementation implements EmployeeService {
 
     @Override
     public List<Employee> getEmployees() {
-        return null;
+        List<Employee> allEmp = new ArrayList<>();
+
+        List<EmployeeEntity> allEmpEnt = employeeRepository.findAll();
+
+        for (EmployeeEntity et : allEmpEnt) {
+            Employee e = new Employee();
+            BeanUtils.copyProperties(et, e);
+            allEmp.add(e);
+        }
+
+
+        return allEmp;
     }
 
     @Override
     public Employee getEmployeeById(String id) {
-        return null;
+
+        EmployeeEntity en = employeeRepository.findById(id).get();
+        Employee emp = new Employee();
+        BeanUtils.copyProperties(en, emp);
+
+        return emp;
     }
 
     @Override
     public String deleteEmpById(String id) {
+        return null;
+    }
+
+    @Override
+    public String updateEmp(Employee e) {
         return null;
     }
 }
